@@ -1,0 +1,112 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #000000;
+  --ifm-color-primary-dark: #000000;
+  --ifm-color-primary-darker: #000000;
+  --ifm-color-primary-darkest: #000000;
+  --ifm-color-primary-light: #202020;
+  --ifm-color-primary-lighter: #303030;
+  --ifm-color-primary-lightest: #404040;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0);
+  
+  --ifm-background-color: #000000;
+  --ifm-background-surface-color: #121212;
+  --ifm-footer-background-color: #121212;
+  --ifm-font-color-base: #ffffff;
+  --ifm-navbar-background-color: #000000;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #ffffff;
+  --ifm-color-primary-dark: #e6e6e6;
+  --ifm-color-primary-darker: #d9d9d9;
+  --ifm-color-primary-darkest: #b3b3b3;
+  --ifm-color-primary-light: #ffffff;
+  --ifm-color-primary-lighter: #ffffff;
+  --ifm-color-primary-lightest: #ffffff;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0);
+  
+  --ifm-background-color: #000000;
+  --ifm-background-surface-color: #121212;
+  --ifm-footer-background-color: #121212;
+  --ifm-font-color-base: #ffffff;
+  --ifm-navbar-background-color: #000000;
+}
+
+/* Basic link styles */
+a {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* Navbar styles */
+.navbar__item {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s ease;
+}
+
+.navbar__item:hover {
+  color: #ffffff;
+}
+
+/* Navbar brand specific styles */
+.navbar__brand {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s ease;
+}
+
+.navbar__brand:hover {
+  color: #ffffff;
+}
+
+.navbar__title {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s ease;
+}
+
+.navbar__title:hover {
+  color: #ffffff;
+}
+
+/* Footer styles */
+.footer__link-item {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s ease;
+}
+
+.footer__link-item:hover {
+  color: #ffffff;
+}
+
+/* Active states */
+.navbar__link--active {
+  color: #ffffff;
+}
+
+/* Add this to your CSS */
+.button.button--secondary {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 25px;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.button.button--secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: white;
+}

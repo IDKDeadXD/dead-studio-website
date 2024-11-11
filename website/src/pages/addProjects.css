@@ -1,0 +1,32 @@
+/* Basic styling for the Add Project form */
+.add-projects-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .add-projects-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .add-projects-container button {
+    padding: 10px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .add-projects-container button:hover {
+    background-color: #005f99;
+  }
+  
+  .preview-image {
+    max-width: 200px;
+    height: auto;
+    border-radius: 8px;
+  }
+  
