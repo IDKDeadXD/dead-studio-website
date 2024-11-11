@@ -1,11 +1,18 @@
-// editProjects.js
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Layout from '@theme/Layout';
-import axios from 'axios';
-import './editProjects.css';
+import BrowserOnly from '@docusaurus/BrowserOnly'; // Import BrowserOnly
+import './editProjects.css'; // Import the CSS file
 
 export default function EditProjects() {
+  return (
+    <BrowserOnly fallback={<div>Loading...</div>}>
+      {() => <EditProjectsContent />}
+    </BrowserOnly>
+  );
+}
+
+function EditProjectsContent() {
   const [newProject, setNewProject] = useState({
     title: '',
     description: '',
@@ -15,25 +22,38 @@ export default function EditProjects() {
   });
   const [projects, setProjects] = useState([]);
   const history = useHistory();
-  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
 
+  // Ensure localStorage is accessed only on the client side
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check authentication status in useEffect
+    if (typeof window !== 'undefined') {
+      const authStatus = localStorage.getItem('isAuthenticated') === 'true';
+      setIsAuthenticated(authStatus);
+    }
+  }, []);
+
+  // Check if the user is authenticated
   useEffect(() => {
     if (!isAuthenticated) {
       history.push('/login');
-    } else {
-      fetchProjects(); // Fetch projects on load
     }
   }, [isAuthenticated, history]);
 
-  const fetchProjects = async () => {
-    try {
-      const response = await axios.get('http://localhost:3001/getProjects');
-      setProjects(response.data);
-    } catch (error) {
-      console.error('Error fetching projects:', error);
+  // Fetch projects from localStorage or API
+  const fetchProjects = () => {
+    if (typeof window !== 'undefined') {
+      const storedProjects = JSON.parse(localStorage.getItem('projects')) || [];
+      setProjects(storedProjects);
     }
   };
 
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  // Handle image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -41,34 +61,34 @@ export default function EditProjects() {
       reader.onloadend = () => {
         setNewProject({
           ...newProject,
-          image: reader.result,
+          image: reader.result, 
         });
       };
       reader.readAsDataURL(file);
     }
   };
 
+  // Handle adding a project
   const handleAddProject = () => {
     const tagsArray = newProject.tags.split(',').map(tag => tag.trim());
     const projectToAdd = { ...newProject, tags: tagsArray };
-  
-    // Save to localStorage
-    const storedProjects = JSON.parse(localStorage.getItem('projects')) || [];
-    storedProjects.push(projectToAdd);
-    localStorage.setItem('projects', JSON.stringify(storedProjects));
-  
-    // Update state to reflect the added project
-    setProjects(storedProjects);
-    setNewProject({ title: '', description: '', tags: '', link: '', image: '' }); // Reset input fields
-  };
-  
 
-  const handleDeleteProject = async (projectToDelete) => {
-    try {
-      await axios.delete(`http://localhost:3001/deleteProject`, { data: { id: projectToDelete.id } });
+    // Save project to localStorage
+    if (typeof window !== 'undefined') {
+      const storedProjects = JSON.parse(localStorage.getItem('projects')) || [];
+      storedProjects.push(projectToAdd);
+      localStorage.setItem('projects', JSON.stringify(storedProjects));
+      setNewProject({ title: '', description: '', tags: '', link: '', image: '' });
       fetchProjects();
-    } catch (error) {
-      console.error('Error deleting project:', error);
+    }
+  };
+
+  // Handle deleting a project
+  const handleDeleteProject = (projectToDelete) => {
+    if (typeof window !== 'undefined') {
+      const updatedProjects = projects.filter(project => project !== projectToDelete);
+      localStorage.setItem('projects', JSON.stringify(updatedProjects));
+      setProjects(updatedProjects);
     }
   };
 
